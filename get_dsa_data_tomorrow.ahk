@@ -1,4 +1,5 @@
 SetKeyDelay, 1000
+CoordMode, Mouse, Client
 
 get_tom_dsa()
 
@@ -21,7 +22,7 @@ get_tom_dsa(st := 0, en := 0){
 	FormatTime, save_start_date, %start_date%, yyyy_MM_dd
 	FormatTime, save_end_date, %end_date%, yyyy_MM_dd
 	
-	f_name := "H:\Abteilung Verwaltung\prepare_DSA\pdfs\" save_start_date ".pdf"
+	f_name := "H:\Abteilung Verwaltung\daily_dashboard\pdfs\" save_start_date ".pdf"
 	
 	
 	if FileExist(f_name)
@@ -38,7 +39,7 @@ get_tom_dsa(st := 0, en := 0){
 	Sleep, 1500
 	
 	MouseClick, Left, 414, 25 ; clicks in termin planer to prepare for keystrokes
-	CoordMode, Mouse, Client
+	
 	MouseClick, l, 457, 68 ; pick dsa
 	Sleep, 5000
 	MouseClick, l, 1132, 121 ; click today

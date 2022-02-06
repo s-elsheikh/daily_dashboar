@@ -10,22 +10,7 @@ ui <- fluidPage(
         sidebarPanel(
             radioButtons("pats", "Todays_Patients", choices = c("")),
             h5("click pat to see labor werte from 0:00 Uhr")
-        ),
-        mainPanel(
-            tabsetPanel(
-                # using iframe along with tags() within tab to display pdf with scroll, height and width could be adjusted
-                # tabPanel("Laborwerte vom gestern Abend", 
-                #          tags$iframe(style="height:600px; width:100%; scrolling=yes", 
-                #                      src=paste0(output$path, "/befs_pat_1.pdf")))
-                
-                
-                
-                tabPanel("Laborwerte vom gestern Abend",
-                         tags$iframe(style="height:600px; width:100%; scrolling=yes",
-                                     src="pdf_folder/befs_pat_1.pdf"))
-                
-                
-                ))
+        )
         
     
        
@@ -33,7 +18,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
     f <- stamp_date("2020_05_25.pdf")
-    f_name <- str_c("../pdfs/", f(today()-1))
+    f_name <- str_c("../pdfs/", f(today()-1)) # why -1 ?????
     tod_pdf <- readtext::readtext(f_name)
     tex <- tod_pdf$text
     df <- str_split(tex, "\\n")[[1]] %>% tibble(text = .)
@@ -53,8 +38,7 @@ server <- function(input, output, session) {
     names_vect <- todays_pats$name
     updateRadioButtons(inputId = "pats", choices = names_vect)
     
-    
-   addResourcePath("pdf_folder","H:/Abteilung Verwaltung/prepare_DSA/pdfs")
+    # addResourcePath("pdf_folder","H:/Abteilung Verwaltung/prepare_DSA/pdfs")
     #output$path <- renderUI({tags$iframe(src="pdf_folder/1.pdf",style="height:800px; width:100%;scrolling=yes")})
     
   
